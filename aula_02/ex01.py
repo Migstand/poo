@@ -1,3 +1,4 @@
+print('Digite quatro valores inteiros')
 a = int(input())
 b = int(input())
 c = int(input())
@@ -12,5 +13,6 @@ for i in range(4):
         par = par + li[i]
     else:
         impar = impar +li[i]
-print(par)
-print(impar)
+
+print("Soma dos pares =",par)
+print("Soma dos impares =",impar)
