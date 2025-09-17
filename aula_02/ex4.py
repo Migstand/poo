@@ -1,9 +1,11 @@
 data = input('Digite uma data no formato dd/mm/aaaa: ')
+d, m, a = map(int,data.split("/")) #split: "17/09/2025" -> ["17", "09", "2025"]
+max = 31
 
-li = [0,'janeiro','fervereiro','março','abril','maio','junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
-
-data = list(map(int,input().split()))
-if data[1] == 2:
-    if data[0] > 28 and data[0] < 1:
-        print("A data informada não é válida")
-elif data [1] >
+if m in [4,6,9,11]:
+    max = 30
+if m == 2:
+    if (a % 4 == 0 and a % 100) or (a % 400 == 0): max =29
+    else: max = 28
+if 1 <= d <= max and 1 <= m <= 12: print("Data válida")
+else: print ("Data inválida")

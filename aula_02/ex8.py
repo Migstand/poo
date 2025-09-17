@@ -1,5 +1,4 @@
-print('Digite uma frase:')
-n = input()
+n = input('Digite uma frase:')
 
 n = list(n)
 for i in range(len(n)):
