@@ -1,12 +1,15 @@
 class viagem:
     def __init__(self):
         self.km = 0
-        self.tg = "hh/mm"
+        self.th = ""
+        self.tm = ""
     def vm(self):
-        return self.km/self.tg
+        tg = self.th + (self.tm/60)
+        return self.km/tg
     
 goncalo = viagem()
 goncalo.km = int(input())
-goncalo.tg = int(input().split("/"))
+goncalo.th, goncalo.tm = map(int,input().split(":"))
+# print (goncalo.th, goncalo.tm)
 b = goncalo.vm()
 print (b)
