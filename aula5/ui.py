@@ -1,22 +1,12 @@
-class Ingresso: #Entidade
-    def __init__(self):
-        self.dia = ""
-        self.hora = 0
-    def inteira(self):
-        if self.dia == "quarta": return 8
-        if self.dia in ["segunda", "terça", "quinta"]: valor = 16
-        else: valor = 20
-        if self.hora >= 17 or self.hora == 0: valor = valor * 1.5
-        return valor
-
+import ingresso.py
 
 class UI: #interface com o usuário - não tem instância
     @staticmethod
-    def main():
+    def main(): #método estático é um método chamado com a classe
         op = 0
         while op != 3:
             op = UI.menu()
-            if op == 1: UI.ingresso()
+            if op == 1: UI.ingresso() #ingresso é chamado com o class
             if op == 2: UI.Viagem()
     @staticmethod
     def menu():
@@ -30,14 +20,10 @@ class UI: #interface com o usuário - não tem instância
         x.hora = int(input("Informe a hora [0-23]: "))
         print(x.dia)
         print(x.hora)
+        # x.inteira() chama o método da classe e self é a instância x
+        # inteira() 
         print(f"Valor do ingresso R$ {x.inteira():.2f}")
+        print(f"Valor do ingresso R$ {x.meia():.2f}")
     @staticmethod
     def viagem():
         pass
-
-UI.main()
-# inter = Ingresso()
-# inter.dia = input()
-# inter.hora = int(input())
-# valor = inter.valor()
-# print(valor)
