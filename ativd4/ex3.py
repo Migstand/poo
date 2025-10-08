@@ -42,7 +42,18 @@ class Cliente:
         else :
             return f"{self.__nome} {self.__limite} {self.__socio.__nome} {self.get_limite_sociedade()}"
 
-
+class Empresa:
+    def __init__(self, nome):
+        self.set_nome(nome)
+        self.__clientes = []
+    def set_nome(self, nome):
+        self.__nome = nome
+    def inserir(self, cliente):
+        self.__clientes.append(cliente)
+    def listar(self):
+        return self.__clientes
+    def __str__(self):
+        return f"{self.__nome} tem {len(self.__clientes)} cliente(s)"
 class UI:
     @staticmethod
     def main():
@@ -62,9 +73,16 @@ class UI:
         a.set_socio(c)
         
         print("")
-        print(a)
-        print(b)
-        print(c)
-        print(d)
+        x = Empresa("IFRN")
+        x.inserir(a)
+        x.inserir(b)
+        x.inserir(c)
+        x.inserir(d)
+        print(x)
+        for c in x.listar(): print(c)
+
+        print(x.listar())
+        print(*x.listar())
+
         
 UI.main()
