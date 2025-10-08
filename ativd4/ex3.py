@@ -20,19 +20,51 @@ class Cliente:
             return self.__limite + self.__socio.__limite
 
     def set_socio(self, socio):
-        self.__socio = socio
-        socio.__socio = self
+        c1 = self
+        c2 = self.__socio
+        c3 = socio
+        c4 = socio.__socio
+        
+        if c2 != None: c2.__socio = None
+        if c4 != None: c4.__socio = None
+        
+        # self.__socio = socio
+        # socio.__socio = self
+        c1.__socio = c3
+        c3.__socio = c1
+
     def get_socio(self):
         return self.__socio
     
     def __str__(self):
         if self.__socio == None:
-            return f"{self.__nome} {self.__limite} {self.get_limite()}"
+            return f"{self.__nome} {self.__limite} {self.get_limite_sociedade()}"
         else :
-            return f"{self.__nome} {self.__limite} {self.__socio.__nome} {self.get_limite()}"
+            return f"{self.__nome} {self.__limite} {self.__socio.__nome} {self.get_limite_sociedade()}"
 
 
 class UI:
     @staticmethod
     def main():
-        a = Cliente()
+        a = Cliente("Alex", 1000)
+        b = Cliente("Marília", 1500)
+        c = Cliente("Eduardo", 2000)
+        d = Cliente("Silvia", 2500)
+        
+        a.set_socio(b)
+        d.set_socio(c)
+
+        print(a)
+        print(b)
+        print(c)
+        print(d)
+
+        a.set_socio(c)
+        
+        print("")
+        print(a)
+        print(b)
+        print(c)
+        print(d)
+        
+UI.main()
