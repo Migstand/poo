@@ -12,6 +12,9 @@ print(vars(a)) #Cria um json
 
 clientes = [a, b, c]
 
+# with open('clientes.json', mode="w") as arquivo:
+    # json.dump(clientes, arquivo, deafault = vars)
 
-with open('clientes.json', mode="w") as arquivo:
-    json.dump(clientes, arquivo, deafault = vars)
+arquivo = open('./aula10_json/clientes.json', mode="w") 
+json.dump(clientes, arquivo, deafault = vars, indent=4)
+arquivo.close()
