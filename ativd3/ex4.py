@@ -20,6 +20,9 @@ class Eq_2_grau:
     
     def delta(self):
         return ((self.__b**2) - ((self.__a*self.__c)*4))
+    def tem_raizes(self):
+        if self.delta()>0 : return True
+        else: raise ValueError ("Não há raiazes")
     def raiz1(self):
         soma = (((self.__b)*(-1)) + ((self.delta())**0.5))/(2*self.__a)
         return f"{soma:.2f}"
@@ -37,6 +40,7 @@ class UI:
         x.set_b(int(input()))
         x.set_c(int(input()))
         y = x.delta()
+        o = x.tem_raizes()
         z = x.raiz1()
         w = x.raiz2()
         print (x)

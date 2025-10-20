@@ -8,6 +8,8 @@ print(x)
 print(y)
 print(z)
 
-a = datetime.strptime(input("Informe a data de nascimento: "), "%d/%m%Y")
+a = datetime.strptime(input("Informe a data de nascimento: "), "%d/%m/%Y")
 b = datetime.now()
 
+print(a)
+print(b)
