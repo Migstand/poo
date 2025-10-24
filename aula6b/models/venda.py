@@ -1,0 +1,37 @@
+class Venda:
+    def __init__(self, id, data, carrinho, total, id_Cliente):
+        self.id = id
+        self.data = data
+        self.carrinho = carrinho
+        self.total = total
+        self.id_Clientes = id_Cliente
+    
+    def __str__(self):
+        return f"{self.id} - {self.data} - {self.carrinho} - {self.total} - {self.id_Cliente}"
+    def to_json(self):
+        return { "id" : self.id, "data" : self.data, "total" : self.total, "id_Cliente" : self.id_Cliente}
+    def from_json(dic):
+        return Venda(dic["id"], dic["data"], dic["carrinho"], dic["total"], dic["id_Cliente"])
+
+class VendaDAO:
+    objetos = []
+    @classmethod
+    def inserir(cls, obj):
+        cls.abri()
+        id = 0
+        for aux in cls.objetos:
+            if aux.id > id: id = aux.id
+        obj.id = id + 1
+        obj.id = max(cls.objetos, key = lambda x : x.id).id + 1
+        cls.objetos.append(obj)
+        cls.salvar()
+    @classmethod
+    def listar(cls):
+        cls.abrir()
+        return cls.objetos
+    
+    @classmethod
+    def lista_id(cls, id):
+        for obj in cls.objetos:
+            if obj.id == id: return obj
+        return None

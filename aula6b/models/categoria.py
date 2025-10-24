@@ -47,16 +47,16 @@ class CategoriaDAO:                       # classe estática -> não tem instân
     def excluir(cls, cliente):
         aux = cls.listar_id(obj.id)
         if aux != None:
-        for obj in cls.objetos:
-            if obj.id == cliente.id:
-                cls.objetos.remove(obj)
-                cls.salvar()
+            for obj in cls.objetos:
+                if obj.id == cliente.id:
+                    cls.objetos.remove(obj)
+                    cls.salvar()
         
     @classmethod
     def salvar(cls):
         with open("categoria.json", mode="w") as arquivo:
             # json.dump(cls.objetos, arquivo, deafault = vars, indent=4)
-            json.dump(cls.objetos, arquivo, deafault = Categoria.to_json, indent=4)
+            json.dump(cls.objetos, arquivo, deafault = Categoria.to_json(), indent=4)
     
     @classmethod
     def abrir(cls):
