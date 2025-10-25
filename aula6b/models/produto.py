@@ -47,15 +47,13 @@ class ProdutoDAO:
     def excluir(cls, produto):
         aux = cls.lista_id(obj.id)
         if aux != None:
-            for obj in cls.objetos:
-                if obj.id == produto.id:
-                    cls.objetos.remove(obj)
-                    cls.salvar()
+            cls.objetos.remove(obj)
+            cls.salvar()
 
     @classmethod
     def salvar(cls):
         with open("produtos.json", mode = "w") as arquivo:
-            json.dump(cls.objetos, arquivo, deafault = Produto.to_json() , indent = 4)
+            json.dump(cls.objetos, arquivo, deafault = Produto.to_json, indent = 4)
     
     @classmethod
     def abrir(cls):

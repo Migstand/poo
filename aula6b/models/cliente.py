@@ -8,7 +8,7 @@ class Cliente:
         return { "id": self.id, "nome": self.nome}
     @staticmethod
     def from_json(dic):
-        return Categoria(dic["id"]), dic["nome"]
+        return Cliente(dic["id"], dic["nome"])
 
 class ClienteDAO:                       # classe estática -> não tem instância
     objetos = []                           
@@ -47,15 +47,13 @@ class ClienteDAO:                       # classe estática -> não tem instânci
     def excluir(cls, cliente):
         aux = cls.listar_id(obj.id)
         if aux != None:
-            for obj in cls.objetos:
-                if obj.id == cliente.id:
-                    cls.objetos.remove(obj)
-                    cls.salvar()
+            cls.objetos.remove(obj)
+            cls.salvar()
         
     @classmethod
     def salvar(cls):
         with open("clientes.json", mode="w") as arquivo:
-            json.dump(cls.objetos, arquivo, deafault = Cliente.to_json() , indent=4)
+            json.dump(cls.objetos, arquivo, deafault = Cliente.to_json, indent=4)
     
     @classmethod
     def abrir(cls):
