@@ -1,11 +1,12 @@
+import json
 class Cliente:
     def __init__(self, id, nome):
         self.id = id
         self.nome = nome
     def __str__(self):
-        return f"{self.id} - {self.nome}"7
+        return f"{self.id} - {self.nome}"
     def to_json(self):
-        return { "id": self.id, "nome": self.nome}
+        return { "id" : self.id, "nome" : self.nome }
     @staticmethod
     def from_json(dic):
         return Cliente(dic["id"], dic["nome"])
@@ -19,7 +20,6 @@ class ClienteDAO:                       # classe estática -> não tem instânci
         for aux in cls.objetos:
             if aux.id > id: id = aux.id
         obj.id = id + 1 
-        obj.id = max(cls.objetos, key = lambda x : x.id).id + 1
         cls.objetos.append(obj)
         cls.salvar()
     @classmethod
@@ -29,6 +29,7 @@ class ClienteDAO:                       # classe estática -> não tem instânci
 
     @classmethod
     def lista_id(cls, id):
+        cls.abrir()
         for obj in cls.objetos:
             if obj.id == id: return obj
         return None
@@ -36,7 +37,7 @@ class ClienteDAO:                       # classe estática -> não tem instânci
     @classmethod
     def atualizar(cls, obj):
         #procurar o objeto que tem o id dado por obj.id
-        aux = cls.listar_id(obj.id)
+        aux = cls.lista_id(obj.id)
         if aux != None:
             # aux.nome = obj.nome
             # remove o objeto antigo aux e insere novo obj
@@ -44,16 +45,17 @@ class ClienteDAO:                       # classe estática -> não tem instânci
             cls.objetos.append(obj)
             cls.salvar()
     @classmethod
-    def excluir(cls, cliente):
-        aux = cls.listar_id(obj.id)
+    def excluir(cls, obj):
+        aux = cls.lista_id(obj.id)
         if aux != None:
-            cls.objetos.remove(obj)
+            cls.objetos.remove(aux)
             cls.salvar()
         
     @classmethod
     def salvar(cls):
         with open("clientes.json", mode="w") as arquivo:
-            json.dump(cls.objetos, arquivo, deafault = Cliente.to_json, indent=4)
+            #json.dump(cls.objetos, arquivo, default = vars, indent=4)
+            json.dump(cls.objetos, arquivo, default = Cliente.to_json, indent=4)
     
     @classmethod
     def abrir(cls):

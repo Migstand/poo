@@ -1,11 +1,12 @@
+import json
 class Categoria:
     def __init__(self, id, descricao):
         self.id = id
-        self.descricao
+        self.descricao = descricao
     def __str__(self):
         return f"{self.id} - {self.descricao}"
     def to_json(self):
-        return { "id": self.id, "descricao": self.descricao}
+        return { "id" : self.id, "descricao" : self.descricao }
     @staticmethod
     def from_json(dic):
         return Categoria(dic["id"], dic["descricao"])
@@ -19,7 +20,6 @@ class CategoriaDAO:                       # classe estática -> não tem instân
         for aux in cls.objetos:
             if aux.id > id: id = aux.id
         obj.id = id + 1 
-        obj.id = max(cls.objetos, key = lambda x : x.id).id + 1
         cls.objetos.append(obj)
         cls.salvar()
     @classmethod
@@ -29,6 +29,7 @@ class CategoriaDAO:                       # classe estática -> não tem instân
 
     @classmethod
     def lista_id(cls, id):
+        cls.abrir()
         for obj in cls.objetos:
             if obj.id == id: return obj
         return None
@@ -36,7 +37,7 @@ class CategoriaDAO:                       # classe estática -> não tem instân
     @classmethod
     def atualizar(cls, obj):
         #procurar o objeto que tem o id dado por obj.id
-        aux = cls.listar_id(obj.id)
+        aux = cls.lista_id(obj.id)
         if aux != None:
             # aux.nome = obj.nome
             # remove o objeto antigo aux e insere novo obj
@@ -44,17 +45,17 @@ class CategoriaDAO:                       # classe estática -> não tem instân
             cls.objetos.append(obj)
             cls.salvar()
     @classmethod
-    def excluir(cls, cliente):
-        aux = cls.listar_id(obj.id)
+    def excluir(cls, obj):
+        aux = cls.lista_id(obj.id)
         if aux != None:
-            cls.objetos.remove(obj)
+            cls.objetos.remove(aux)
             cls.salvar()
         
     @classmethod
     def salvar(cls):
         with open("categoria.json", mode="w") as arquivo:
             # json.dump(cls.objetos, arquivo, deafault = vars, indent=4)
-            json.dump(cls.objetos, arquivo, deafault = Categoria.to_json, indent=4)
+            json.dump(cls.objetos, arquivo, default = Categoria.to_json, indent=4)
     
     @classmethod
     def abrir(cls):
