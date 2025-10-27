@@ -43,7 +43,9 @@ class UI:
     def cliente_inserir():
         id = 0
         nome = input("Informe o nome: ")
-        c = Cliente(id, nome)
+        email = input("Informe o email: ")
+        fone = input("Informe o número de telefone: ")
+        c = Cliente(id, nome, email, fone)
         ClienteDAO.inserir(c) #instanciar DAO vai criar várias listas de clientes
 
     def cliente_listar():
@@ -54,13 +56,17 @@ class UI:
         UI.cliente_listar()
         id = int(input("Informe o id a ser atualizado: "))
         nome = input("Informe o novo nome: ")
-        c = Cliente(id, nome)
+        email = input("Informe o email: ")
+        fone = input("Informe o número de telefone: ")
+        c = Cliente(id, nome, email, fone)
         ClienteDAO.atualizar(c)
     def cliente_excluir():
         UI.cliente_listar()
         id = int(input("Informe o id a ser excluído: "))
         nome = ""
-        c = Cliente(id, nome)
+        email = ""
+        fone = ""
+        c = Cliente(id, nome, email, fone)
         ClienteDAO.excluir(c)
     
     def categoria_inserir():
