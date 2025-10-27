@@ -41,7 +41,7 @@ class UI:
             if op == 12: UI.produto_excluir()
 
     def cliente_inserir():
-        id = int(input("Informe o id: "))
+        id = 0
         nome = input("Informe o nome: ")
         c = Cliente(id, nome)
         ClienteDAO.inserir(c) #instanciar DAO vai criar várias listas de clientes
@@ -64,7 +64,7 @@ class UI:
         ClienteDAO.excluir(c)
     
     def categoria_inserir():
-        id = int(input("Informe o id: "))
+        id = 0
         descricao = input("Infor a descrição dessa categoria: ")
         c = Categoria(id, descricao)
         CategoriaDAO.inserir(c)
@@ -85,12 +85,13 @@ class UI:
         CategoriaDAO.excluir(c)
     
     def produto_inserir():
-        id = int(input("Informe o id a ser atualizado: "))
+        id = 0
         descricao = input("Informa a descrição desse produto: ")
         preco = float(input("Informe o preço: "))
         estoque = int(input("Informe o estoque desse produto: "))
         id_Categoria = int(input("Informe a categoria desse produto colocando o id referente: "))
         c = Produto(id, descricao, preco, estoque, id_Categoria)
+        ProdutoDAO.inserir(c)
 
     def produto_listar():
         for obj in ProdutoDAO.listar():

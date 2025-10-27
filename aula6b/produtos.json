@@ -1,0 +1,30 @@
+[
+    {
+        "id": 2,
+        "descricao": "Luigi's Mansion",
+        "preco": 300.0,
+        "estoque": 999999,
+        "id_Categoria": 1
+    },
+    {
+        "id": 3,
+        "descricao": "Spider Man",
+        "preco": 400.0,
+        "estoque": 6,
+        "id_Categoria": 1
+    },
+    {
+        "id": 4,
+        "descricao": "Ghost Busters",
+        "preco": 28.9,
+        "estoque": 2,
+        "id_Categoria": 3
+    },
+    {
+        "id": 1,
+        "descricao": "Copo",
+        "preco": 5.0,
+        "estoque": 6,
+        "id_Categoria": 4
+    }
+]
