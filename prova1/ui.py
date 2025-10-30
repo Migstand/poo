@@ -1,3 +1,4 @@
+import json
 from models.corrida import Corrida, CorridaDAO
 from models.pessoa import Pessoa, PessoaDAO
 from datetime import datetime, timedelta
@@ -30,13 +31,22 @@ class UI:
         nome  = input("Digite o seu nome completo: ")
         nascimento = datetime.strptime(input("Informe a data de nascimento: "), "%d/%m/%Y")
         c = Pessoa(id, nome, nascimento)
-        PessoaDAO.inserir()
+        PessoaDAO.inserir(c)
     def pessoa_listar():
         for obj in PessoaDAO.listar():
             print(obj)
     def pessoa_pesquisar():
+        UI.pessoa_listar()
         pessoa = input("Digite o nome de alguem: ")
-        CorridaDAO.get_idpessoa(pessoa)
+        with open("pessoas.json", mode="r") as arquivo:
+            list_dic = json.load(arquivo)
+            for dic in list_dic:
+                for key in dic:
+                    if key == "nome":
+                        if pessoa == dic[key]:
+                            return dic["nome"]
+        return "Essa pessoa não está listada"
+
     
     def corrida_inserir():
         id  = 0
@@ -45,7 +55,7 @@ class UI:
         distancia = int(input("Informe a distância da corrida em metros: "))
         tempo = timedelta(hours = int(input("Duração em horas")), minutes=int(input("Duração em minutos"), seconds = int(input("Duração em segundos"))))
         c = Corrida(id, idpessoa, data, distancia, tempo)
-        CorridaDAO.inserir()
+        CorridaDAO.inserir(c)
     def corrida_listar():
         for obj in CorridaDAO.listar():
             print(obj)

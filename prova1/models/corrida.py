@@ -15,14 +15,8 @@ class Corrida:
     def set_idpessoa(self, idpessoa):
         self.__idpessoa = idpessoa
     def get_idpessoa(self, idpessoa):
-        with open("pessoas.json", mode="r") as arquivo:
-            list_dic = json.load(arquivo)
-            for dic in list_dic:
-                for key in dic:
-                    if key == "id":
-                        if self.__idpessoa == dic[key]:
-                            return dic["pessoa"]
-        return "Essa pessoa não está listada"
+        return self.__idpessoa
+
     
     def set_data(self, data):
         hoje = datetime.now()
@@ -81,23 +75,6 @@ class CorridaDAO:
             if obj.id == id: return obj
         return None
 
-    @classmethod
-    def atualizar(cls, obj):
-        #procurar o objeto que tem o id dado por obj.id
-        aux = cls.lista_id(obj.id)
-        if aux != None:
-            # aux.nome = obj.nome
-            # remove o objeto antigo aux e insere novo obj
-            cls.objetos.remove(aux)
-            cls.objetos.append(obj)
-            cls.salvar()
-    @classmethod
-    def excluir(cls, obj):
-        aux = cls.lista_id(obj.id)
-        if aux != None:
-            cls.objetos.remove(aux)
-            cls.salvar()
-        
     @classmethod
     def salvar(cls):
         with open("corridas.json", mode="w") as arquivo:
