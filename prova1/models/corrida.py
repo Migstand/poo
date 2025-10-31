@@ -7,6 +7,7 @@ class Corrida:
         self.set_data(data)
         self.set_distância(distancia)
         self.set_tempo(tempo)
+
     def set_id(self, id):
         self.__id = id
     def get_id(self):
@@ -20,7 +21,7 @@ class Corrida:
     
     def set_data(self, data):
         hoje = datetime.now()
-        if data > hoje: raise ValueError(" Digite uma data existente: ")
+        if data >= hoje: raise ValueError("Data inexistente")
         else: self.__data = data
     def get_data(self):
         return self.__data
@@ -31,26 +32,27 @@ class Corrida:
         return self.__distancia
     
     def set_tempo(self, tempo):
+        if tempo < timedelta(): raise ValueError("Tempo inválido")
         self.__tempo = tempo
     def get_tempo(self, tempo):
         return self.__tempo
     
     def pace(self):
-        qui = self.__distancia /1000
-        h = self.__tempo.hours/60
-        m = self.tempo.minutes
-        s = self.__tempo.seconds*60
-        minu = h + m + s
-        return minu / qui
+        return (self.__tempo.seconds/60)/(self.__distancia/1000)
     
     def __str__(self):
-        return f"{self.__id} - {self.__idpessoa} - {self.__data} - {self.__distancia} - {self.__tempo}"
+        return f"{self.__id} - {self.__data.datetime.strftime("%d/%m/%Y")} - distância: {self.__distancia}m - tempo: {self.__tempo} - pace: {self.pace():.2f}"
 
     def to_json(self):
-        return { "id" : self.__id, "idpessoa" : self.__idpessoa, "data" : self.__data, "distancia" : self.__distancia, "tempo" : self.__tempo}
+        return { "id" : self.__id, "idpessoa" : self.__idpessoa, 
+        "data" : self.__data.strftime("%d/%m/%Y"), 
+        "distancia" : self.__distancia, 
+        "tempo" : self.__tempo.seconds}
     @staticmethod
     def from_json(dic):
-        return Produto(dic["id"], dic["idpessoa"], dic["data"], dic["distancia"], dic["tempo"])
+        return Corrida(dic["id"], dic["idpessoa"], \
+        datetime.strftime(dic["data"], "%d/%m/%Y"), \
+         dic["distancia"], timedelta(seconds=dic["tempo"]))
     
 class CorridaDAO:
     objetos = []                           

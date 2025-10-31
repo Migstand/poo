@@ -5,12 +5,14 @@ class Pessoa:
         self.set_id(id)
         self.set_nome(nome)
         self.set_nascimento(nascimento)
+        
     def set_id(self, id):
         self.__id = id
     def get_id(self):
         return self.__id
 
     def set_nome(self, nome):
+        if nome == "": raise ValueError("Nome inválido")
         self.__nome = nome
     def get_nome(self):
         return self.__nome
@@ -22,20 +24,21 @@ class Pessoa:
         # if y> a: raise ValueError(" Digite uma data existente: ")
         # if e> m: raise ValueError(" Digite uma data existente: ")
         # if h> d: raise ValueError(" Digite uma data existente: ")
-        if nascimento > hoje: raise ValueError("Digite uma data existente: ")
+        if nascimento >= hoje: raise ValueError("Digite inválida")
         self.__nascimento = nascimento
     def get_nascimento(self, nascimento):
         return self.__nascimento
-    
 
     def __str__(self):
-        return f"{self.__id} - {self.__nome} - {self.__nascimento}"
+        return f"{self.__id} - {self.__nome} - {self.__nascimento.strftime("%d/%m/%Y")}"
 
     def to_json(self):
-        return { "id" : self.__id, "nome" : self.__nome, "nascimento" : self.__nascimento}
+        return { "id" : self.__id, "nome" : self.__nome, 
+        "nascimento" : self.__nascimento.strftime("%d/%m/%Y")}
     @staticmethod
     def from_json(dic):
-        return Produto(dic["id"], dic["nome"], dic["nascimento"])
+        return Produto(dic["id"], dic["nome"],
+        "nascimento" : datetime.strftime(dic["nascimento"], "%d/%m/%Y"))
     
 class PessoaDAO:
     objetos = []                           
@@ -44,8 +47,8 @@ class PessoaDAO:
         cls.abrir()
         id = 0
         for aux in cls.objetos:
-            if aux.id > id: id = aux.id
-        obj.id = id + 1 
+            if aux.get_id() > id: id = aux.get_id() # Precisava chamar o set e get por causa do encapsulamento 
+        obj.set_id (id + 1)
         cls.objetos.append(obj)
         cls.salvar()
     @classmethod
@@ -57,7 +60,7 @@ class PessoaDAO:
     def lista_id(cls, id):
         cls.abrir()
         for obj in cls.objetos:
-            if obj.id == id: return obj
+            if obj.get_id() == id: return obj
         return None
 
     @classmethod
