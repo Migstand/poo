@@ -50,7 +50,7 @@ class UI:
         distancia = int(input("Informe a distância da corrida em metros: "))
         tempo = input("Informe o tempo em hh:mm:ss: ")
         h, m, s = map(int, input().split(":"))
-        c = Corrida(id, idpessoa, datetime.strftime(data, "%d/%m/%Y"), 
+        c = Corrida(id, idpessoa, datetime.strftime(data, "%d/%m/%Y"), \
             distancia, timedelta(hours = h, minutes = m, seconds = s))
         CorridaDAO.inserir(c)
 
