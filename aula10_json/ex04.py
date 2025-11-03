@@ -51,7 +51,7 @@ class ClienteDAO:                       # classe estática -> não tem instânci
     @classmethod
     def salvar(cls):
         with open("clientes.json", mode="w") as arquivo:
-            json.dump(cls.objetos, arquivo, deafault = vars, indent=4)
+            json.dump(cls.objetos, arquivo, default = vars, indent=4)
     
     @classmethod
     def abrir(cls):
