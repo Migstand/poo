@@ -21,6 +21,8 @@ class Produto:
                     if key == "id":
                         if self.id_Categoria == dic[key]:
                             return dic["descricao"]
+    def reajustar_preco(self, porcentagem):
+        self.preco * (1 + porcentagem)
 
     def __str__(self):
         return f"{self.id} - {self.descricao} - R${self.preco} - {self.estoque} unidades - {self.get_idcat()}"

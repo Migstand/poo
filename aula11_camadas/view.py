@@ -61,6 +61,11 @@ class View:
         c = Produto(id, descricao, preco, estoque, id_Categoria)
         ProdutoDAO.excluir(c)
     
+    def reajustar_preco(porcentagem):
+        for obj in ProdutoDAO.listar():
+            obj.reajustar_preco()
+            ProdutoDAO.atualizar(obj)
+    
     # SERÁ COLOCADO DEPOIS!!!!! AINDA FALTA MONTAR A INTERAÇÃO DESSA PARTE DO SISTEMA.
 
     # def venda_inserir():

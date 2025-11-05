@@ -10,14 +10,14 @@ class UI:
         print("5-Inserir, 6-Listar, 7-Atualizar, 8-Excluir")
         print()
         print("Produtos")
-        print("9-Inserir, 10-Listar, 11-Atualizar, 12-Excluir")
+        print("9-Inserir, 10-Listar, 11-Atualizar, 12-Excluir, 13-Reajuste")
         print()
         print("13-Fim")
         return int(input("Informe uma opção: "))
     
     def main():
         op = 0
-        while op != 13:
+        while op != 14:
             op = UI.menu()
             if op == 1: UI.cliente_inserir()
             if op == 2: UI.cliente_listar()
@@ -31,6 +31,7 @@ class UI:
             if op == 10: UI.produto_listar()
             if op == 11: UI.produto_atualizar()
             if op == 12: UI.produto_excluir()
+            if op == 13: UI.reajustar_preco()
 
     def cliente_inserir():
         nome = input("Informe o nome: ")
@@ -95,5 +96,9 @@ class UI:
         UI.produto_listar()
         id = int(input("Informe o id a ser excluído: "))
 
+    def reajustar_preco():
+        UI.produto_listar()
+        porcentagem = int(input("Informe a porcentagem: "))
+        View.reajustar_preco(porcentagem)
 
 UI.main()
