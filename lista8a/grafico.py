@@ -12,12 +12,25 @@ if st.button("Calcular"):
     st.write(sg.x1())
     st.write(sg.x2())
 
+    px = []
+    py = []
 
+    p = sg.ponto_inflexao()
+    xmin = p - 10
+    xmax = p + 10
+    npontos = 50
+    dist = (xmax - xmin)/(npontos - 1)
 
+    x  = xmin
+    while x <= xmax:
+        px.append(x)
+        y = sg.y(x)
+        py.append(y)
+        x += dist
     df = pd.DataFrame(
         {
-            "x": [-4,-3.75, -3.5, -3.25, -3, -2.5, -2, -1.5, 0, 1.5, 2, 2.5, 3, 3.25, 3.5, 3.75, 4],
-            "y": [12, 10, 8, 6, 4, 2, 0, -2, -4, -2, 0, 2, 4, 6, 8, 10, 12],
+            "x": px,
+            "y": py,
         }
     )
 
